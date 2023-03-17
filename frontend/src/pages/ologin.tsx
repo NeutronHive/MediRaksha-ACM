@@ -5,7 +5,6 @@ import axios from "axios";
 import { useRouter } from 'next/router';
 
 
-
 const OLogin = ()=>{
     const router = useRouter();
     const [username,setUsername]=useState('');
@@ -13,7 +12,28 @@ const OLogin = ()=>{
     const [password,setPassword]=useState('');     
     const [address,setAddress]=useState('');     
     const [email2,setEmail2]=useState('');
-    const [password2,setPassword2]=useState('');     
+    const [password2,setPassword2]=useState('');  
+    const update=async (username,URL)=>{
+     const data={
+          username,
+          status:'true'
+     }
+
+     try {
+          await axios({
+            method: 'POST',
+            url: URL,
+            data
+          }).then((res) => {
+            console.log(res.data);
+          
+          });
+        } 
+        catch (err) {
+          console.log(err)
+        } 
+
+    }
     const fetchData = async (URL) => {
          const data={
               // "username":"Prajwaasdasdsadsdfasdasdlasdsad1305 Shah",
@@ -56,6 +76,8 @@ const OLogin = ()=>{
              console.log(res.data);
              if(res.data.success == "true"){
               console.log("success");
+              const url='https://medirole-api-production.up.railway.app/api/v1/users/update';
+               update(username,url);
                    router.push('/');
              }
            });

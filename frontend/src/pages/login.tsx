@@ -12,7 +12,28 @@ const Login = ()=>{
      const [email,setEmail]=useState('');
      const [password,setPassword]=useState('');     
      const [email2,setEmail2]=useState('');
-     const [password2,setPassword2]=useState('');     
+     const [password2,setPassword2]=useState('');  
+     const update=async (URL)=>{
+          const data={
+               username,
+               status:'true'
+          }
+          console.log(data);
+          try {
+               await axios({
+                 method: 'POST',
+                 url: URL,
+                 data
+               }).then((res) => {
+                 console.log(res.data);
+               
+               });
+             } 
+             catch (err) {
+               console.log(err)
+             } 
+     
+         }   
      const fetchData = async (URL) => {
           const data={
                // "username":"Prajwaasdasdsadsdfasdasdlasdsad1305 Shah",
@@ -29,7 +50,7 @@ const Login = ()=>{
             }).then((res) => {
               console.log(res.data);
               if(res.data.success == "true"){
-               console.log("success");
+                    console.log("success");
                     router.push('/');
               }
             });
@@ -38,24 +59,24 @@ const Login = ()=>{
             console.log(err)
           }
      }
-     const fetchData2 = async (URL) => {
+     const fetchData2 = async (URL2) => {
           const data={
                // "username":"Prajwaasdasdsadsdfasdasdlasdsad1305 Shah",
                // "email":"prajwalshsdadsda2hasdasd13asdasd05.2003@gmail.com",
                // "password":"21223asdfadasd7dfadf3asd1305"
-               email:email2,password:password2
+               username:email2,password:password2
           }
           console.log(data);
           try {
             await axios({
               method: 'POST',
-              url: URL,
+              url: URL2,
               data
             }).then((res) => {
               console.log(res.data);
               if(res.data.success == "true"){
                console.log("success");
-                    router.push('/');
+               router.push('/');
               }
             });
           } 
@@ -71,8 +92,11 @@ const Login = ()=>{
      }
      const handleClick2 = (e) => {
           e.preventDefault();
+          const url='https://medirole-api-production.up.railway.app/api/v1/users/update';
+          update(url);
           fetchData2(URL2);
      }
+
     React.useEffect(() => {
 
         const signUpButton = document.getElementById('signUp') as HTMLButtonElement;  
